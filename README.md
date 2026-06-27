@@ -1,201 +1,155 @@
-# Tutorial 4: ADMET Property Prediction and Toxicity Profiling of CDK2 Inhibitors
-
-## A Comprehensive Cheminformatics Tutorial Using ADMET-AI 2.0 and RDKit
-
-**Authors:** Jane O. Anebi, Festus O. Ogungbemiro & Felix O. Okunlola
-**Institution:** CBIOS – Research Center for Biosciences & Health Technologies, Universidade Lusofona, Lisboa, Portugal; Department of Biochemistry and Biotechnology, Nile University of Nigeria, Abuja, Nigeria
-
+Tutorial 4: ADMET Property Prediction and Toxicity Profiling of CDK2 Inhibitors
+A Comprehensive Cheminformatics Tutorial Using ADMET-AI 2.0 and RDKit
+Authors: Festus O. Ogungbemiro1*, Jane O. Anebi1, Felix O. Okunlola2, Love A. Onyekwere1 and Evna M. M. Pereira1  
+Institution: CBIOS – Research Center for Biosciences & Health Technologies, Universidade Lusofona, Lisboa, Portugal; Department of Biochemistry and Biotechnology, Nile University of Nigeria, Abuja, Nigeria  
+Journal: Journal of Cheminformatics (under review)  
+Zenodo DOI: https://doi.org/10.5281/zenodo.20435115
 ---
-
-# Overview
-
-This repository contains a comprehensive educational Jupyter notebook for large-scale computational ADMET profiling of cyclin-dependent kinase 2 (CDK2) inhibitors using ADMET-AI 2.0, RDKit, and Python-based cheminformatics workflows.
-
-The tutorial demonstrates a complete and reproducible workflow for predicting Absorption, Distribution, Metabolism, Excretion, and Toxicity (ADMET) properties of small molecules using graph neural network-based prediction models integrated with cheminformatics analysis pipelines.
-
+Overview
+This repository contains a fully annotated, reproducible Jupyter notebook for large-scale computational ADMET profiling of 200 cyclin-dependent kinase 2 (CDK2) inhibitors from ChEMBL release 35. The workflow uses ADMET-AI 2.0 (Swanson et al. 2024) and RDKit to predict and analyse 52 ADMET endpoints across absorption, distribution, metabolism, excretion, and toxicity domains.
 The notebook is designed for:
-
-* Computational drug discovery researchers
-* Cheminformatics and bioinformatics students
-* Medicinal chemists
-* Pharmacology and toxicology researchers
-* Graduate-level teaching and workshops
-* Reproducible computational research training
-
-The workflow analyses 200 curated CDK2 inhibitors from ChEMBL release 35 and generates comprehensive ADMET profiles across 104 predictive properties.
-
+Computational drug discovery researchers
+Cheminformatics and bioinformatics students
+Medicinal chemists and pharmacologists
+Graduate-level teaching and workshops
+Reproducible computational research training
 ---
-
-# Key Features
-
-* Fully annotated educational notebook
-* Reproducible ADMET prediction workflow
-* Integration of ADMET-AI 2.0 and RDKit
-* Multi-endpoint ADMET prediction
-* Drug-likeness and structural alert analysis
-* CYP450 metabolism profiling
-* Toxicity and Tox21 pathway prediction
-* DrugBank approved-drug percentile benchmarking
-* Composite ADMET scoring framework
-* Traffic-light visualisation system
-* Automated CSV export of integrated ADMET profiles
-* FAIR and open-science oriented workflow
-
----
-
-# Scientific Scope
-
-| Domain                       | Analysis Included                                |
-| ---------------------------- | ------------------------------------------------ |
-| Physicochemical Profiling    | Molecular descriptors, lipophilicity, solubility |
-| Drug-Likeness                | Lipinski Ro5, PAINS, Brenk, NIH filters          |
-| Absorption                   | HIA, Caco-2, PAMPA, Pgp, bioavailability         |
-| Distribution                 | BBB permeability, VDss, PPBR                     |
-| Metabolism                   | CYP450 inhibition and substrate profiling        |
-| Excretion                    | Clearance and half-life predictions              |
-| Toxicity                     | hERG, AMES, DILI, ClinTox, LD50, carcinogenicity |
-| Tox21 Profiling              | Nuclear receptor and stress response pathways    |
-| Benchmarking                 | DrugBank percentile ranking analysis             |
-| Multi-Parameter Optimisation | Composite ADMET scoring and ranking              |
-
----
-
-# Workflow Structure
-
-| Cell    | Section                                     |
-| ------- | ------------------------------------------- |
-| Cell 0  | Environment Setup and Version Validation    |
-| Cell 0B | Python and Cheminformatics Fundamentals     |
-| Cell 1  | CDK2 Dataset Construction                   |
-| Cell 2  | ADMET-AI Prediction Pipeline                |
-| Cell 3  | Physicochemical Property Profiling          |
-| Cell 4  | Drug-Likeness and Structural Alert Analysis |
-| Cell 5  | Absorption Property Profiling               |
-| Cell 6  | Distribution Property Profiling             |
-| Cell 7  | CYP450 Metabolism Analysis                  |
-| Cell 8  | Excretion Profiling                         |
-| Cell 9  | Toxicity Profiling                          |
-| Cell 10 | Tox21 Pathway Profiling                     |
-| Cell 11 | DrugBank Percentile Benchmarking            |
-| Cell 12 | ADMET Traffic-Light Dashboard               |
-| Cell 13 | Composite ADMET Scoring                     |
-| Cell 14 | 2D Structure Grid Visualisation             |
-| Cell 15 | Integrated Report Export                    |
-
----
-
-# Software Requirements
-
-## Core Dependencies
-
-* Python 3.10+
-* RDKit
-* ADMET-AI 2.0
-* pandas
-* numpy
-* matplotlib
-* seaborn
-* scikit-learn
-* torch
-* pytorch-lightning
-
----
-
-# Installation
-
-## 1. Clone the Repository
-
-```bash
-git clone https://github.com/your-repository/cdk2-admet-tutorial.git
-cd cdk2-admet-tutorial
+Repository Structure
 ```
-
-## 2. Create a Conda Environment
-
-```bash
-conda create -n admet_tutorial python=3.10
-conda activate admet_tutorial
+cdk2-admet-tutorial/
+├── environment.yml                    ← START HERE: pinned conda + pip environment
+├── README.md                          ← This file
+├── cdk2_admet_tutorial4_v3.ipynb      ← Main tutorial notebook
+├── data/
+│   └── cdk2_inhibitors_200.csv        ← 200 CDK2 inhibitors (ChEMBL 35, curated)
+└── outputs/                           ← Generated by notebook (not tracked by git)
+    ├── cdk2_admet_raw_predictions.csv
+    ├── cdk2_integrated_admet_report.csv
+    └── *.png / *.svg
 ```
-
-## 3. Install RDKit
-
-```bash
-conda install -c conda-forge rdkit
-```
-
-## 4. Install Python Packages
-
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn torch pytorch-lightning jupyter
-```
-
-## 5. Install ADMET-AI
-
-Follow installation instructions from the official ADMET-AI repository/documentation.
-
+The dataset (`data/cdk2_inhibitors_200.csv`) is provided as a standalone CSV file — data and code are kept separate following best practice. The notebook reads from this file; no data is hardcoded in the notebook itself.
 ---
-
-# Running the Notebook
-
+Installation — One Command
+The entire environment is defined in `environment.yml` with all package versions pinned for reproducibility. Install everything in a single command:
 ```bash
+conda env create -f environment.yml
+```
+This creates the `cdk2_admet_tutorial` conda environment with all required packages, including ADMET-AI 2.0.1 installed via pip (ADMET-AI is not available on conda-forge; all other packages use conda-forge to minimise dependency conflicts).
+Pinned package versions
+Package	Version	Source
+Python	3.11	conda-forge
+RDKit	≥ 2025.3.1	conda-forge
+pandas	≥ 2.2.2	conda-forge
+numpy	≥ 1.26.4, < 2.0	conda-forge
+matplotlib	≥ 3.8.4	conda-forge
+seaborn	≥ 0.13.2	conda-forge
+scikit-learn	≥ 1.4.2	conda-forge
+jupyter	1.0.0	conda-forge
+ipykernel	≥ 6.29.4	conda-forge
+admet-ai	2.0.1	pip (PyPI)
+> **Why numpy < 2.0?** RDKit conda-forge builds for Python 3.11 are compiled against NumPy 1.x. Using numpy ≥ 2.0 causes an `AttributeError: _ARRAY_API not found` crash at RDKit import. The constraint `numpy>=1.26.4,<2.0` resolves this automatically.
+> **Why pip for admet-ai?** ADMET-AI 2.0 is not available on conda-forge. Installing it via pip after the conda environment is built is the recommended approach and is handled automatically by the `environment.yml` pip section.
+Verify installation
+After the build completes, activate and verify:
+```bash
+conda activate cdk2_admet_tutorial
+python -c "import admet_ai; from rdkit import rdBase; print('admet_ai:', admet_ai.__version__); print('rdkit:', rdBase.rdkitVersion)"
+```
+Expected output:
+```
+admet_ai: 2.0.1
+rdkit: 2026.03.3  (or similar 2025/2026 version)
+```
+---
+Running the Notebook
+```bash
+conda activate cdk2_admet_tutorial
+python -m ipykernel install --user --name cdk2_admet_tutorial --display-name "Python (cdk2_admet_tutorial)"
+cd /path/to/cdk2-admet-tutorial
 jupyter notebook
 ```
-
-Open:
-
-```text
-cdk2_admet_tutorial4.ipynb
+Open `cdk2_admet_tutorial4_v3.ipynb` in the browser tab. Confirm the kernel in the top-right corner shows `Python (cdk2_admet_tutorial)`. Run cells sequentially from Cell 0 to Cell 15 — do not skip cells as each cell defines variables used by subsequent cells.
+---
+Tested Platforms
+OS	Python	RDKit	admet-ai	Status
+Windows 11	3.11	2026.03.3	2.0.1	All cells pass
+macOS 15.x	3.11	2026.03.3	2.0.1	All cells pass
+Ubuntu 22.04	3.11	2026.03.3	2.0.1	All cells pass
+---
+Workflow Structure
+Cell	Section	Key outputs
+Cell 0	Environment Setup and Version Validation	Version assertions, global PALETTE
+Cell 0B	Python and Cheminformatics Fundamentals	RDKit basics, SMILES demo
+Cell 1	CDK2 Dataset Construction (from CSV)	df with 200 compounds, RDKit descriptors
+Cell 2	ADMET-AI Prediction + Ground Truth Validation	admet_preds, unit test assertions
+Cell 2B	Training Data Context and Prediction Reliability	TDC training set table, confidence tiers
+Cell 3	Physicochemical Property Profiling	admet_physicochemical_01.png
+Cell 4	Drug-Likeness and Structural Alert Analysis	admet_structural_alerts.png
+Cell 5	Absorption Property Profiling	admet_absorption.png
+Cell 6	Distribution Property Profiling	admet_distribution.png
+Cell 7	CYP450 Metabolism Analysis	admet_cyp450_metabolism.png
+Cell 8	Excretion Profiling	admet_excretion.png
+Cell 9	Toxicity Profiling	admet_toxicity.png
+Cell 10	Tox21 Pathway Profiling	admet_tox21.png
+Cell 11	DrugBank Percentile Benchmarking	admet_drugbank_percentiles.png
+Cell 12	ADMET Traffic Light Dashboard	admet_traffic_light.png, tl_df
+Cell 13	Composite ADMET Scoring	admet_composite_score.png
+Cell 14	2D Structure Grid	admet_top_structures.svg
+Cell 15	Integrated Report Export	cdk2_integrated_admet_report.csv
+---
+Key Features
+Single-command reproducible environment — `conda env create -f environment.yml`
+Data separated from code — dataset in `data/cdk2_inhibitors_200.csv`
+Real unit test validation — Cell 2 includes exact quantitative assertions for 5 known drugs
+ADMET-AI model performance context — Cell 2B provides published TDC training set sizes and confidence tiers per endpoint so predictions are not taken at face value
+Training data overlap discussion — explains why formal PyTDC overlap analysis cannot be included in the same environment and directs users to published methodology
+Consistent case-insensitive column resolution — no hardcoded column names; works across ADMET-AI minor versions
+All imports in Cell 0 — no scattered imports throughout
+Inline code comments — every code decision explained for tutorial readers
+Traffic light dashboard — 13 endpoints, all green/red rules explicitly documented
+Cairo-free SVG rendering — structure grid works on all platforms without Cairo dependency
+FAIR data compliance — GitHub + Zenodo archive, MIT license, standard CSV formats
+---
+ADMET-AI Model Performance
+ADMET-AI 2.0 uses Chemprop-RDKit graph neural networks trained on TDC datasets. Published benchmark performance (Swanson et al. 2024) varies by endpoint:
+High confidence (AUROC ≥ 0.85): AMES (n=7,255), HIA (n=578), BBB (n=1,975), DILI (n=475), ClinTox (n=1,478)
+Moderate confidence (AUROC 0.70–0.85): Bioavailability (n=640), CYP3A4 substrate (n=667)
+Continuous endpoints (Spearman r): Caco-2, Lipophilicity, Solubility, VDss, Half-life, Clearance
+Predictions should always be treated as screening-level estimates. See Cell 2B for the complete endpoint reference table with training set sizes and confidence tiers.
+---
+Applicability Domain
+A formal per-compound Tanimoto similarity analysis between the 200 CDK2 inhibitors and TDC training sets requires the PyTDC package, which introduces a dependency conflict with admet-ai==2.0.1 in the same conda environment. To preserve the single-command reproducible installation, this analysis is not implemented as executable code in the notebook.
+The applicability domain is addressed in the manuscript (Section 2.4C) with full methodology. The CDK2 inhibitor scaffold space (aminopurine, aminopyrimidine, oxindole) is broadly represented in general bioactivity databases, suggesting moderate-to-good applicability domain coverage for most endpoints. Readers requiring compound-level AD analysis should install PyTDC in a separate environment and follow Tropsha A (2010) Mol Inform 29(6-7):476-488.
+---
+Scientific Scope
+Domain	Analysis
+Physicochemical	MW, logP, HBD, HBA, TPSA (RDKit); QED, Solubility, Lipophilicity, HydrationFE (ADMET-AI)
+Drug-Likeness	Lipinski Ro5, PAINS (480 alerts), BRENK (105 alerts), NIH filters
+Absorption	Caco-2, HIA, Bioavailability, PAMPA, Pgp efflux
+Distribution	BBB penetration, PPBR, VDss
+Metabolism	CYP1A2/2C9/2C19/2D6/3A4 inhibition; CYP2C9/2D6/3A4 substrate
+Excretion	Hepatocyte clearance, microsome clearance, half-life
+Toxicity	hERG, AMES, DILI, ClinTox, Carcinogens, LD50, Skin reaction
+Tox21	7 nuclear receptor + 5 stress response endpoints
+Benchmarking	DrugBank percentile ranking (vs 2,579 FDA-approved drugs)
+Scoring	Composite MPO-inspired ADMET score (11 endpoints, weighted)
+---
+Citation
+```bibtex
+@article{Anebi2025cdk2admet,
+  title   = {ADMET Property Prediction and Toxicity Profiling of CDK2 Inhibitors:
+             A Practical Cheminformatics Tutorial Using ADMET-AI 2.0 and RDKit},
+  author  = {Festus O. Ogungbemiro, Jane O. Anebi, Felix O. Okunlola, Love A. Onyekwere and Evna      
+             M. M. Pereira},
+  journal = {Journal of Cheminformatics},
+  year    = {2026},
+  doi     = {10.5281/zenodo.20435115}
+}
 ```
-
-Run cells sequentially from Cell 0 to Cell 15.
-
 ---
-
-# Educational Objectives
-
-After completing this tutorial, users should be able to:
-
-1. Understand ADMET concepts in computational drug discovery
-2. Perform large-scale ADMET prediction using ADMET-AI 2.0
-3. Apply RDKit for molecular processing and descriptor analysis
-4. Interpret pharmacokinetic and toxicity endpoints
-5. Evaluate drug-likeness and structural alerts
-6. Implement multi-parameter optimisation strategies
-7. Generate reproducible cheminformatics workflows
-
+License
+MIT License. See `LICENSE` for full terms.
 ---
-
-# Reproducibility and FAIR Principles
-
-The notebook follows reproducible research and FAIR data principles:
-
-* Findable workflow structure
-* Accessible open-source tools
-* Interoperable Python ecosystem
-* Reusable educational framework
-* Transparent computational methodology
-* Version-controlled analysis pipeline
-
----
-
-# Citation
-
-```text
-Anebi JO, Ogungbemiro FO, Okunlola FO.
-Tutorial 4: ADMET Property Prediction and Toxicity Profiling of CDK2 Inhibitors.
-A Comprehensive Cheminformatics Tutorial Using ADMET-AI 2.0 and RDKit.
-```
-
----
-
-# License
-
-Specify the repository license here (e.g., MIT, BSD-3-Clause, CC BY 4.0).
-
----
-
-# Contact
-
-* Festus O. Ogungbemiro
-* CBIOS – Universidade Lusofona
-* Lisboa, Portugal
+Contact
+Festus O. Ogungbemiro — a22400872@alunos.ulht.pt  
+CBIOS – Universidade Lusofona, Lisboa, Portugal
