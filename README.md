@@ -122,6 +122,7 @@ Open `cdk2_admet_tutorial4_v3.ipynb` in the browser tab. Confirm the kernel in t
 | Cell 0 | Environment Setup and Version Validation | Version assertions, global PALETTE |
 | Cell 0B | Python and Cheminformatics Fundamentals | RDKit basics, SMILES demo |
 | Cell 1 | CDK2 Dataset Construction (from CSV) | df with 200 compounds, RDKit descriptors |
+| Cell 1B | CDK2 Dataset Provenance (quering ChEMBL Database for the 200 curated compounds) | Source of Compounds and Unique Assays |
 | Cell 2 | ADMET-AI Prediction + Ground Truth Validation | admet_preds, unit test assertions |
 | Cell 2B | Training Data Context and Prediction Reliability | TDC training set table, confidence tiers |
 | Cell 3 | Physicochemical Property Profiling | admet_physicochemical_01.png |
